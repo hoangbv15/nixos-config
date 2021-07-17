@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./packages.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -45,6 +46,7 @@
 
   # Display drivers
   services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   # Enable the Plasma 5 Desktop Environment.
   services.xserver.displayManager.sddm.enable = true;
@@ -70,40 +72,6 @@
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
   };
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    # System
-    vim
-    wget
-    git
-    kate
-
-    # General
-    google-chrome
-    skype
-    ferdi
-
-    # Games
-    lutris
-    steam
-
-    # Work
-    virt-manager
-  ];
-  
-  # Configurations needed for some packages
-  programs = {
-    steam.enable = true;
-    dconf.enable = true;
-  };
-  
-  # Enable libvirtd for virt-manager
-  virtualisation.libvirtd.enable = true;
-  
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
