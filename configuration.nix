@@ -45,7 +45,13 @@
   services.xserver.enable = true;
 
   # Display drivers
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    videoDrivers = [ "nvidia" ];
+    # Enable modifying clocks for overclocking/undervolting
+    deviceSection = ''
+      Option "Coolbits" "28"
+    '';
+  };
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   # Enable the Plasma 5 Desktop Environment.
