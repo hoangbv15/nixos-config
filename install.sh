@@ -1,2 +1,2 @@
-cp -R *.nix /etc/nixos/
-nixos-rebuild switch
+sudo cp -R *.nix /etc/nixos/
+sudo nixos-rebuild switch
